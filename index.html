@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <table style="margin: auto;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+    </table>
+
+    <script>
+
+        var list = [];
+
+        var tbodyElement = document.querySelector("tbody")
+        function loadProducts(){
+            axios.get("https://jsonplaceholder.typicode.com/users?_limit=10").then((res) =>{
+                console.log(res);
+                list = res.data
+                // console.log(111, res.data);
+                console.log(111, list);
+                render();
+            })
+        }
+        
+        function render(){
+            const treList = list.map(function (employees){
+                return `
+                <tr> 
+                    <td>${employees.name}</td>
+                    <td>${employees.username}</td>
+                    <td>${employees.email}</td>
+                </tr>
+                `;
+            });
+            tbodyElement.innerHTML = treList.join("")
+        }
+        loadProducts();
+    </script>
+</body>
+
+</html>
